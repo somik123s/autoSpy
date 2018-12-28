@@ -16,6 +16,7 @@ public class XpathCapture {
     private static int getElementPosition(final Element element) {
         final Elements chlds = element.parent().children();
         int count = 0;
+        
         for (Element e : chlds) {
             if (e.nodeName().equals(element.nodeName())) {
                 count++;
@@ -36,6 +37,7 @@ public class XpathCapture {
     public static void xpath(final javax.swing.JTextArea noticeBoard, final String html) {
         Document doc = Jsoup.parse(html);
         Elements elements = doc.body().getAllElements();
+        ArrayList<String> xpathList = new ArrayList<String>();
         for (Element element : elements) {
             StringBuilder path;
             if (StringUtils.hasLength(element.id())) {
@@ -64,6 +66,7 @@ public class XpathCapture {
                 }
             }
             System.out.println(path + " = " + element.attributes() );
+            xpathList.add(path.toString());
             noticeBoard.setText(path + " = " + element.attributes() + " : Own Text= " + element.ownText());
             if (element.attributes().size() > 0) {
                 //System.out.println(path + " = " + element.attributes()+" OwnText ="+element.ownText());
